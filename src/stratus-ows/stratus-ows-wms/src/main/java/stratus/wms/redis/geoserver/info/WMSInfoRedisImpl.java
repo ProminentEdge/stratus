@@ -66,6 +66,10 @@ public class WMSInfoRedisImpl extends AbstractServiceInfoRedisImpl implements Se
 
     private CacheConfiguration cacheConfiguration = new CacheConfiguration();
 
+    protected int remoteStyleTimeout;
+
+    protected int remoteStyleMaxRequestTime;
+
     public List<String> getSRS() {
         return srs;
     }
@@ -126,6 +130,26 @@ public class WMSInfoRedisImpl extends AbstractServiceInfoRedisImpl implements Se
     @Override
     public void setCacheConfiguration(CacheConfiguration cacheCfg) {
         this.cacheConfiguration = cacheCfg;
+    }
+
+    @Override
+    public int getRemoteStyleMaxRequestTime() {
+        return remoteStyleMaxRequestTime;
+    }
+
+    @Override
+    public void setRemoteStyleMaxRequestTime(int remoteStyleTimeout) {
+        this.remoteStyleTimeout = remoteStyleMaxRequestTime;
+    }    
+    
+    @Override
+    public int getRemoteStyleTimeout() {
+        return remoteStyleTimeout;
+    }
+
+    @Override
+    public void setRemoteStyleTimeout(int remoteStyleTimeout) {
+        this.remoteStyleTimeout = remoteStyleTimeout;
     }
 
 }

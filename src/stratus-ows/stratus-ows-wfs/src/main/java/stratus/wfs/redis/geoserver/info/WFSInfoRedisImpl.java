@@ -32,6 +32,7 @@ public class WFSInfoRedisImpl extends AbstractServiceInfoRedisImpl implements Se
     protected boolean hitsIgnoreMaxFeatures = false;
     protected Boolean allowGlobalQueries = true;
     protected ArrayList<String> srs = new ArrayList<String>();
+    protected boolean simpleConversion = false;
 
     public Map<Version, GMLInfo> getGML() {
         return gml == null ? new HashMap<>() : gml;
@@ -66,4 +67,15 @@ public class WFSInfoRedisImpl extends AbstractServiceInfoRedisImpl implements Se
     public void setAllowGlobalQueries(Boolean allowGlobalQueries) {
         this.allowGlobalQueries = allowGlobalQueries;
     }
+
+    @Override
+    public boolean isSimpleConversionEnabled() {
+        return simpleConversion;
+    }
+
+    @Override
+    public void setSimpleConversionEnabled(boolean simpleConversion) {
+        this.simpleConversion = simpleConversion;
+    }
+
 }

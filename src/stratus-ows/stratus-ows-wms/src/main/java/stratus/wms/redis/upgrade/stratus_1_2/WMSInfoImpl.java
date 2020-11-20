@@ -81,6 +81,10 @@ public class WMSInfoImpl extends ServiceInfoImpl implements WMSInfo, Upgradable<
 
     private String rootLayerAbstract;
 
+    protected int remoteStyleTimeout;
+
+    protected int remoteStyleMaxRequestTime;
+
     public WMSInfoImpl() {
         authorityURLs = new ArrayList<AuthorityURLInfo>(2);
         identifiers = new ArrayList<LayerIdentifierInfo>(2);
@@ -260,6 +264,26 @@ public class WMSInfoImpl extends ServiceInfoImpl implements WMSInfo, Upgradable<
     @Override
     public void setCacheConfiguration(CacheConfiguration cacheCfg) {
 
+    }
+
+    @Override
+    public int getRemoteStyleMaxRequestTime() {
+        return remoteStyleMaxRequestTime;
+    }
+
+    @Override
+    public void setRemoteStyleMaxRequestTime(int remoteStyleTimeout) {
+        this.remoteStyleTimeout = remoteStyleMaxRequestTime;
+    }    
+    
+    @Override
+    public int getRemoteStyleTimeout() {
+        return remoteStyleTimeout;
+    }
+
+    @Override
+    public void setRemoteStyleTimeout(int remoteStyleTimeout) {
+        this.remoteStyleTimeout = remoteStyleTimeout;
     }
 
     @Override

@@ -10,7 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import si.uom.NonSI;
 import si.uom.SI;
-import tec.uom.se.AbstractUnit;
+import tech.units.indriya.AbstractUnit;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;

@@ -107,6 +107,8 @@ public abstract class ResourceInfoRedisImpl implements ResourceInfo, Serializabl
 
     protected List<String> disabledServices = new ArrayList<>();
 
+    protected boolean simpleConversion = false;
+
     protected ResourceInfoRedisImpl() {
     }
 
@@ -353,6 +355,16 @@ public abstract class ResourceInfoRedisImpl implements ResourceInfo, Serializabl
     @Override
     public void setDisabledServices(List<String> disabledServices) {
         this.disabledServices = disabledServices;
+    }
+
+    @Override
+    public boolean isSimpleConversionEnabled() {
+        return simpleConversion;
+    }
+
+    @Override
+    public void setSimpleConversionEnabled(boolean simpleConversion) {
+        this.simpleConversion = simpleConversion;
     }
 
     @Override
