@@ -5,18 +5,32 @@ RUN yum -y upgrade \
   && yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
   && yum -y install google-noto-serif-fonts google-noto-fonts-common google-noto-sans-fonts google-noto-sans-symbols-fonts google-noto-sans-ui-fonts \
   && yum -y install dejavu-sans-mono-fonts dejavu-sans-fonts dejavu-serif-fonts liberation-sans-fonts \
-  && yum -y install kernel-headers gcc-c++ openjpeg openjpeg-devel proj-4.0.0 proj-devel-4.8.0 curl-devel make swig wget tar gzip \
+  && yum -y install kernel-headers gcc-c++ openjpeg openjpeg-devel curl-devel make swig wget tar tcl gzip \
   && mkdir /mnt/efs
 
 ENV ANT_VERSION "1.10.6"
-ENV GDAL_VERSION "2.3.2"
+ENV GDAL_VERSION "3.0.4"
+ENV PROJ_VERSION 6.3.2
+ENV SQLITE_VERSION 3.32.3
 ENV LD_LIBRARY_PATH "/usr/local/lib:/usr/lib:/usr/lib64"
 
-RUN wget http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz -O /tmp/gdal.tar.gz \
-  && tar xzf /tmp/gdal.tar.gz -C /tmp \
+RUN wget -qP /tmp https://github.com/sqlite/sqlite/archive/version-${SQLITE_VERSION}.tar.gz \
+  && tar -xf /tmp/version-${SQLITE_VERSION}.tar.gz -C /tmp \
+  && cd /tmp/sqlite-version-${SQLITE_VERSION} \
+  && ./configure \
+  && make \
+  && make install \
+  && wget -qP /tmp https://download.osgeo.org/proj/proj-${PROJ_VERSION}.tar.gz \
+  && tar -xf /tmp/proj-${PROJ_VERSION}.tar.gz -C /tmp \
+  && cd /tmp/proj-${PROJ_VERSION} \
+  && ./configure SQLITE3_CFLAGS="-I/usr/local/include" SQLITE3_LIBS="-L/usr/local/lib -lsqlite3"\
+  && make \
+  && make install \
+  && wget -qP /tmp http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz \
+  && tar xzf /tmp/gdal-${GDAL_VERSION}.tar.gz -C /tmp \
   && cd /tmp/gdal-${GDAL_VERSION} \
   && ./configure --with-java=$JAVA_HOME \
-                --with-proj=/usr/bin/proj \
+                --with-proj=/usr/local \
                 --with-proj5-api=no \
                 --with-curl \
                 --with-openjpeg \
